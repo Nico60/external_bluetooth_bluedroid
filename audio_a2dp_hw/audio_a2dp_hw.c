@@ -594,7 +594,11 @@ static int out_set_sample_rate(struct audio_stream *stream, uint32_t rate)
 
 static size_t out_get_buffer_size(const struct audio_stream *stream)
 {
-    return MAX_OUT_WRITE_LENGTH;
+    struct a2dp_stream_out *out = (struct a2dp_stream_out *)stream;
+
+    INFO("buffer_size : %d", out->buffer_sz);
+
+    return out->buffer_sz;
 }
 
 static uint32_t out_get_channels(const struct audio_stream *stream)
@@ -945,6 +949,9 @@ static int adev_open_output_stream(struct audio_hw_device *dev,
     }
 
     DEBUG("success");
+    /* Delay to ensure Headset is in proper state when START is initiated
+       from DUT immediately after the connection due to ongoing music playback. */
+    usleep(250000);
     return 0;
 
 err_open:
