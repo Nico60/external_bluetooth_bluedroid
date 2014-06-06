@@ -49,7 +49,7 @@
 #define BTA_NO_RESOURCES        4
 #define BTA_WRONG_MODE          5
 #define BTA_BAD_RF              6
-
+#define BTA_TIMEOUT             7
 typedef UINT8 tBTA_STATUS;
 
 /*
@@ -2020,7 +2020,7 @@ BTA_API extern void BTA_DmBleObserve_With_Filter(BOOLEAN start, UINT8 duration, 
 *******************************************************************************/
 BTA_API extern void BTA_DmSetAfhChannelAssessment (BOOLEAN enable_or_disable);
 
-#if BLE_INCLUDE == TRUE
+#if BLE_INCLUDED == TRUE
 // btla-specific --
 /*******************************************************************************
 **
@@ -2063,6 +2063,34 @@ BTA_API extern void BTA_DmBleEnableRemotePrivacy(BD_ADDR bd_addr, BOOLEAN privac
 *******************************************************************************/
 BTA_API extern void BTA_DmBleSetAdvConfig (tBTA_BLE_AD_MASK data_mask,
                                            tBTA_BLE_ADV_DATA *p_adv_cfg);
+
+/*******************************************************************************
+**
+** Function         BTA_DmBleSetScanRsp
+**
+** Description      This function is called to override the BTA scan response.
+**
+** Parameters       Pointer to User defined ADV data structure
+**
+** Returns          None
+**
+*******************************************************************************/
+BTA_API extern void BTA_DmBleSetScanRsp (tBTA_BLE_AD_MASK data_mask,
+                                         tBTA_BLE_ADV_DATA *p_adv_cfg);
+
+/*******************************************************************************
+**
+** Function         BTA_DmBleBroadcast
+**
+** Description      This function starts or stops LE broadcasting.
+**
+** Parameters       start: start or stop broadcast.
+**
+** Returns          None
+**
+*******************************************************************************/
+BTA_API extern void BTA_DmBleBroadcast (BOOLEAN start);
+
 #endif
 
 #ifdef __cplusplus
